@@ -167,5 +167,10 @@ All the function reference [here](https://www.terraform.io/docs/configuration/fu
 
 start with *terraform*
 
-- console
+- init 
+  - every time before do anythings
 - plan
+  - check infrasturcture that is going to provision
+- apply
+  - apply infrastructure to provider
+- console
