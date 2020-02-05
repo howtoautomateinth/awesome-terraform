@@ -101,6 +101,28 @@ resource "aws_instance" "example" {
 }
 ```
 
+- Variable Definitions Files 
+
+> To set lots of variables, it is more convenient to specify their values in a variable definitions file (either .tfvars or .tfvars.json)
+
+```
+.tfvars
+
+image_id = "ami-abc123"
+availability_zone_names = [
+  "us-east-1a",
+  "us-west-1c",
+]
+
+.tfvars.json
+
+{
+  "image_id": "ami-abc123",
+  "availability_zone_names": ["us-west-1a", "us-west-1c"]
+}
+
+```
+
 - Output Variable
 
 > Output values are like the return values of a Terraform module
