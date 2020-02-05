@@ -2,7 +2,7 @@
 A summarize of terraform usage and example
 
 ## Prerequisite
-- [Terraform with Brew](https://brewinstall.org/install-terraform-on-mac-with-brew/)
+- [Terraform with brew](https://brewinstall.org/install-terraform-on-mac-with-brew/)
 
 ## Advantage of Terraform
 - Infrastruture as Code
@@ -16,17 +16,10 @@ Terraform will interpret with *tf* extension
 
 3 main things are
 - Type
-  - string
-  - bool
-  - number
-  - list
-  - set
-  - map
-  - object
-  - tuple
 - Blocks
 - Arguments
 
+## Terraform Objects 
 ### Resources
 
 > Resources are the most important element in the Terraform language
@@ -47,7 +40,7 @@ resource "aws_instance" "web" {
 
 ```
 
-Each resource type in turn belongs to a [provider](https://www.terraform.io/docs/configuration/providers.html)
+Each resource type in turn belongs to a [provider](https://www.terraform.io/docs/providers/index.html)
 
 ```
 e.g. aws
@@ -74,10 +67,21 @@ Meta-arguments, which can be used with any resource type to change the behavior 
 - [provisioner and connection](https://www.terraform.io/docs/configuration/resources.html#provisioner-and-connection-resource-provisioners)
   - for taking extra actions after resource creation
 
-
 ### Variable
 
 - Input Variable
+
+> Input variables serve as parameters for a Terraform module
+
+- Variable Type
+  - string
+  - bool
+  - number
+  - list
+  - set
+  - map
+  - object
+  - tuple
 
 ```
 variable "image_id" {
@@ -88,7 +92,42 @@ variable "availability_zone_names" {
   type    = list(string)
   default = ["us-west-1a"]
 }
+
+usage by var.<NAME>
+
+resource "aws_instance" "example" {
+  instance_type = "t2.micro"
+  ami           = var.image_id
+}
 ```
+
+- Output Variable
+
+> Output values are like the return values of a Terraform module
+
+```
+output "instance_ip_addr" {
+  value = aws_instance.server.private_ip
+}
+```
+
+*Outputs are only rendered when Terraform applies your plan. Running terraform plan will not render outputs*
+
+## Built-in Functions 
+
+> The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values
+
+```
+> max(5, 12, 9)
+12
+
+> format("Hello, %s!", "Ander")
+Hello, Ander!
+> format("There are %d lights", 4)
+There are 4 lights
+```
+
+All the function reference [here](https://www.terraform.io/docs/configuration/functions.html)
 
 ## Terraform Command
 
