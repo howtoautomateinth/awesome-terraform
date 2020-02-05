@@ -27,6 +27,54 @@ Terraform will interpret with *tf* extension
 - Blocks
 - Arguments
 
+### Resources
+
+> Resources are the most important element in the Terraform language
+
+Each resource is associated with a single resource type, which determines the kind of infrastructure object
+
+```
+resource "type" "name" {
+  arguments = value
+}
+
+e.g. resource type aws_instance
+
+resource "aws_instance" "web" {
+  ami           = "ami-a1b2c3d4"
+  instance_type = "t2.micro"
+}
+
+```
+
+Each resource type in turn belongs to a [provider](https://www.terraform.io/docs/configuration/providers.html)
+
+```
+e.g. aws
+
+provider "aws" {
+  
+}
+```
+
+#### Meta-Arguments 
+
+Meta-arguments, which can be used with any resource type to change the behavior of resources
+
+- [depends_on](https://www.terraform.io/docs/configuration/resources.html#depends_on-explicit-resource-dependencies)
+  - for specifying hidden dependencies
+- [count](https://www.terraform.io/docs/configuration/resources.html#count-multiple-resource-instances-by-count)
+  - for creating multiple resource instances according to a count
+- [for_each](https://www.terraform.io/docs/configuration/resources.html#for_each-multiple-resource-instances-defined-by-a-map-or-set-of-strings)
+  - to create multiple instances according to a map, or set of strings
+- [provider](https://www.terraform.io/docs/configuration/resources.html#provider-selecting-a-non-default-provider-configuration)
+  - for selecting a non-default provider configuration
+- [lifecycle](https://www.terraform.io/docs/configuration/resources.html#lifecycle-lifecycle-customizations)
+  - for lifecycle customizations
+- [provisioner and connection](https://www.terraform.io/docs/configuration/resources.html#provisioner-and-connection-resource-provisioners)
+  - for taking extra actions after resource creation
+
+
 ### Variable
 
 - Input Variable
@@ -39,16 +87,6 @@ variable "image_id" {
 variable "availability_zone_names" {
   type    = list(string)
   default = ["us-west-1a"]
-}
-```
-
-### Resources
-describes infrastructure objects
-
-```
-resource "aws_instance" "web" {
-  ami           = "ami-a1b2c3d4"
-  instance_type = "t2.micro"
 }
 ```
 
