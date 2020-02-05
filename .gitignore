@@ -1,3 +1,7 @@
+# varirables files
+**/terraform.tfvars
+!/simple/terraform.tfvars
+
 # Local .terraform directories
 **/.terraform/*
 
