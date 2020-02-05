@@ -113,6 +113,18 @@ output "instance_ip_addr" {
 
 *Outputs are only rendered when Terraform applies your plan. Running terraform plan will not render outputs*
 
+## Software provision with Terraform 
+
+Two ways to provision software
+- Custom AMI
+- Standard AMI with 
+  - File upload
+  - Remote exec
+  - Automation tools
+    - chef (integrated with terraform)
+    - puppet
+    - ansible
+
 ## Built-in Functions 
 
 > The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values
