@@ -1,14 +1,39 @@
 # Awesome Terraform
 A summarize of terraform usage and example
 
-## Prerequisite
-- [Terraform with brew](https://brewinstall.org/install-terraform-on-mac-with-brew/)
-
 ## Advantage of Terraform
 - Infrastruture as Code
 - Automation of your Infrastructure
 - Infrastructure auditable
 - Keep infrastructure in certain state
+
+## Prerequisite
+- [Terraform with brew](https://brewinstall.org/install-terraform-on-mac-with-brew/)
+
+## Terraform Command
+
+start with *terraform*
+
+- init 
+  - every time before do anythings
+- plan
+  - check infrasturcture that is going to provision
+- apply
+  - apply infrastructure to provider
+- console
+
+### Note
+- Terraform v0.12 now allows you to use expressions directly when defining most attributes. No need to use interpolation any more
+
+```
+ # Old 0.11 example
+  tags = "${merge(map("Name", "example"), var.common_tags)}"
+
+  # Updated 0.12 example
+  tags = merge({ Name = "example" }, var.common_tags)
+```
+
+- To run an example of Terraform please provide *Terraform.tfvars* that contains AWS credentail on those folder 
 
 ## Terraform Syntax
 
@@ -162,15 +187,3 @@ There are 4 lights
 ```
 
 All the function reference [here](https://www.terraform.io/docs/configuration/functions.html)
-
-## Terraform Command
-
-start with *terraform*
-
-- init 
-  - every time before do anythings
-- plan
-  - check infrasturcture that is going to provision
-- apply
-  - apply infrastructure to provider
-- console
