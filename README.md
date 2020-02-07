@@ -172,7 +172,7 @@ resource "aws_instance" "web" {
 
 ```
 
-- loop
+- [loop](https://www.terraform.io/docs/configuration/expressions.html#for-expressions)
   - for
     - creates a complex type value by transforming another complex type value
   
