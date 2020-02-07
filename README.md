@@ -160,6 +160,60 @@ output "instance_ip_addr" {
 
 *Outputs are only rendered when Terraform applies your plan. Running terraform plan will not render outputs*
 
+## Control Statement
+- [if-else](https://www.terraform.io/docs/configuration-0-11/interpolation.html#conditionals)
+
+```
+# condition ? true_val : false_val
+
+resource "aws_instance" "web" {
+  subnet = "${var.env == "production" ? var.prod_subnet : var.dev_subnet}"
+}
+
+```
+
+- loop
+  - for
+    - creates a complex type value by transforming another complex type value
+  
+```
+# Produce tuple
+[for s in var.list : upper(s)]
+
+# Produce object
+{for s in var.list : s => upper(s)}
+
+Diff is "[" or "{"
+
+# optional if clause to filter elements
+[for s in var.list : upper(s) if s != ""]
+
+# add ... symbol for object
+{for s in var.list : substr(s, 0, 1) => s... if s != ""}
+```
+
+  - dynamic block
+    - supported inside resource, data, provider, and provisioner blocks
+    - acts much like a for expression
+    - The for_each argument provides the complex value to iterate over
+    - Best Practices for dynamic Blocks
+      - Overuse of dynamic blocks can make configuration hard to read and maintain
+      
+```
+resource "aws_security_group" "example" {
+  name = "example" # can use expressions here
+
+  dynamic "ingress" {
+    for_each = var.service_ports
+    content {
+      from_port = ingress.value
+      to_port   = ingress.value
+      protocol  = "tcp"
+    }
+  }
+}
+```
+
 ## Software provision with Terraform 
 
 Two ways to provision software
