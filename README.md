@@ -160,6 +160,34 @@ output "instance_ip_addr" {
 
 *Outputs are only rendered when Terraform applies your plan. Running terraform plan will not render outputs*
 
+### Datasources
+
+> allow data to be fetched or computed for use elsewhere in Terraform configuration
+
+```
+# Find the latest available AMI that is tagged with Component = web
+data "aws_ami" "web" {
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
+
+  filter {
+    name   = "tag:Component"
+    values = ["web"]
+  }
+
+  most_recent = true
+}
+
+resource "aws_instance" "web" {
+  ami           = data.aws_ami.web.id
+  instance_type = "t1.micro"
+}
+```
+
+Each [provider](https://www.terraform.io/docs/configuration/providers.html) may offer data sources alongside its set of [resource types](https://www.terraform.io/docs/configuration/resources.html#resource-types-and-arguments)
+
 ## Control Statement
 - [if-else](https://www.terraform.io/docs/configuration-0-11/interpolation.html#conditionals)
 
