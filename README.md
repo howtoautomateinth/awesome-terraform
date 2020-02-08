@@ -215,12 +215,40 @@ resource "aws_instance" "web" {
 
 ### Remote state
 
-> The terraform state can be saved remote, using *backend* functionality in terraform, The default is a local backend (the local file)
+> The terraform state can be saved remote, using *backend* functionality in terraform
 
-Other backend
-- s3
-- consul
+Example Backend
+- S3
+- Consul
 - terraform enterprise
+
+### Backends Benefit
+
+- Working in a team
+  - Backends can store their state remotely and protect that state with locks to prevent corruption
+- Keeping sensitive information off disk
+  - The state ever is persisted not in memory
+  - The default is a local backend (the local file)
+- Remote operations
+  - For larger infrastructures or certain changes, terraform apply can take a long, long time. Some backends support remote operations which enable the operation to execute remotely
+
+### Configuration
+
+configured directly in Terraform files in the terraform section
+
+```
+# example configuring the "consul" backend
+
+terraform {
+  backend "consul" {
+    address = "demo.consul.io"
+    scheme  = "https"
+    path    = "example_app/terraform_state"
+  }
+}
+```
+
+before use must always *terraform init* configured backend
 
 ## Control Statement
 - [if-else](https://www.terraform.io/docs/configuration-0-11/interpolation.html#conditionals)
