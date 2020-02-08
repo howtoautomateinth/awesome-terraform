@@ -214,6 +214,69 @@ resource "aws_security_group" "example" {
 }
 ```
 
+## Modules
+
+> is a container for multiple resources that are used together
+
+To define a module, create a new directory for it and place one or more .tf files inside just as you would do for a root module. Modules can also call other modules using a *module* block (but recommend keeping flat)
+
+### Module structure
+
+Most commonly, modules use
+
+- [Input Variables](https://www.terraform.io/docs/configuration/variables.html)
+- [Ouput Values](https://www.terraform.io/docs/configuration/outputs.html)
+- [Resources](https://www.terraform.io/docs/configuration/resources.html)
+
+### When to write a module
+
+Any combination of resources and other constructs can be factored out into a module, but over-using modules can make your overall Terraform configuration harder to understand and maintain, so we recommend moderation.
+
+```
+For example, aws_instance and aws_elb are both resource types belonging to the AWS provider. You might use a module to represent the higher-level concept "HashiCorp Consul cluster running in AWS" which happens to be constructed from these and other AWS provider resources.
+```
+
+### Standard Module Structure
+
+recommend for reusable modules distributed in separate repositories
+
+- Root module 
+  - a file and directory layout
+  - or have nested under Root module
+- README.md
+
+```
+# Dedicated folder for module and README.md
+$ tree minimal-module/
+.
+├── README.md
+├── main.tf
+├── variables.tf
+├── outputs.tf
+
+#Nested
+$ tree complete-module/
+.
+├── README.md
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── ...
+├── modules/
+│   ├── nestedA/
+│   │   ├── README.md
+│   │   ├── variables.tf
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   ├── nestedB/
+│   ├── .../
+├── examples/
+│   ├── exampleA/
+│   │   ├── main.tf
+│   ├── exampleB/
+│   ├── .../
+```
+
 ## Software provision with Terraform 
 
 Two ways to provision software
