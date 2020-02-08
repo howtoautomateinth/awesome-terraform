@@ -188,6 +188,40 @@ resource "aws_instance" "web" {
 
 Each [provider](https://www.terraform.io/docs/configuration/providers.html) may offer data sources alongside its set of [resource types](https://www.terraform.io/docs/configuration/resources.html#resource-types-and-arguments)
 
+### Provisioners
+
+> Terraform includes the concept of provisioners as a measure of pragmatism, knowing that there will always be certain behaviors that can't be directly represented in Terraform's declarative model
+
+#### local-exec Provisioner
+
+invokes a local executable after a resource is created
+
+```
+resource "aws_instance" "web" {
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.web.private_ip} >> private_ips.txt"
+  }
+}
+```
+
+## State
+
+> Terraform keeps thre remote state of the infrastructure
+
+- Terraform stores state locally in a file named *terraform.tfstate*
+- Backup the previous state in *terraform.tfstate.backup*
+- When you execute *terraform apply*, a new *terraform.tfstate* and backup is written
+- If thre remote state changes and you hit terraform apply again, terraform will make changes to meet the correct remote state again
+
+### Remote state
+
+> The terraform state can be saved remote, using *backend* functionality in terraform, The default is a local backend (the local file)
+
+Other backend
+- s3
+- consul
+- terraform enterprise
+
 ## Control Statement
 - [if-else](https://www.terraform.io/docs/configuration-0-11/interpolation.html#conditionals)
 
