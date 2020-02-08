@@ -279,6 +279,34 @@ $ tree complete-module/
 │   ├── .../
 ```
 
+## Software provision with Terraform 
+
+Two ways to provision software
+- Custom AMI
+- Standard AMI with 
+  - File upload
+  - Remote exec
+  - Automation tools
+    - chef (integrated with terraform)
+    - puppet
+    - ansible
+
+## Built-in Functions 
+
+> The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values
+
+```
+> max(5, 12, 9)
+12
+
+> format("Hello, %s!", "Ander")
+Hello, Ander!
+> format("There are %d lights", 4)
+There are 4 lights
+```
+
+All the function reference [here](https://www.terraform.io/docs/configuration/functions.html)
+
 ## Packer
 
 > Build Automated Machine Images
@@ -332,31 +360,3 @@ $ tree complete-module/
 - build
   - build your image
   - artifacts are the results of a build, and typically represent an ID (such as in the case of an AMI)
-
-## Software provision with Terraform 
-
-Two ways to provision software
-- Custom AMI
-- Standard AMI with 
-  - File upload
-  - Remote exec
-  - Automation tools
-    - chef (integrated with terraform)
-    - puppet
-    - ansible
-
-## Built-in Functions 
-
-> The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values
-
-```
-> max(5, 12, 9)
-12
-
-> format("Hello, %s!", "Ander")
-Hello, Ander!
-> format("There are %d lights", 4)
-There are 4 lights
-```
-
-All the function reference [here](https://www.terraform.io/docs/configuration/functions.html)
