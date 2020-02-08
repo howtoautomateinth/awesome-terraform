@@ -233,7 +233,9 @@ Most commonly, modules use
 Any combination of resources and other constructs can be factored out into a module, but over-using modules can make your overall Terraform configuration harder to understand and maintain, so we recommend moderation.
 
 ```
-For example, aws_instance and aws_elb are both resource types belonging to the AWS provider. You might use a module to represent the higher-level concept "HashiCorp Consul cluster running in AWS" which happens to be constructed from these and other AWS provider resources.
+For example, aws_instance and aws_elb are both resource types belonging to the AWS provider. 
+You might use a module to represent the higher-level concept "HashiCorp Consul cluster running in AWS" 
+which happens to be constructed from these and other AWS provider resources.
 ```
 
 ### Standard Module Structure
