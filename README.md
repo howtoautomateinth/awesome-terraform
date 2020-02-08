@@ -279,6 +279,52 @@ $ tree complete-module/
 │   ├── .../
 ```
 
+## Packer
+
+> Build Automated Machine Images
+
+[Packer](https://packer.io/) is an open source tool for creating identical machine images for multiple platforms from a single source configuration
+
+### Packer Template
+
+3 main parts
+- variables
+  - contain the list of variables you need to use or need across other sections on the Packer Template JSON file
+- builders
+  - define what image we are going to create and for which technology/platform we are going to create an image for like AWS, DOCKER, VirtualBox, OpenStack etc.
+- provisioners
+  - the list of built-in or external configuration on management tools like Shell, Ansible, Chef, PowerShell
+  - adding a necessary software/programs to it
+  
+```
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-east-1",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+        "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "packer-example {{timestamp}}"
+  }]
+}
+```
+
+ validate the template by running *packer validate*
+
 ## Software provision with Terraform 
 
 Two ways to provision software
