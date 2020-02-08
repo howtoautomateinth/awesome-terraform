@@ -296,6 +296,8 @@ $ tree complete-module/
   - the list of built-in or external configuration on management tools like Shell, Ansible, Chef, PowerShell
   - adding a necessary software/programs to it
   
+*reference [Template Structure](https://packer.io/docs/templates/index.html)*
+
 ```
 {
   "variables": {
@@ -323,7 +325,13 @@ $ tree complete-module/
 }
 ```
 
- validate the template by running *packer validate*
+### Interesting Command
+- validate
+  - validate the template
+  - output should be *Template validated successfully.*
+- build
+  - build your image
+  - artifacts are the results of a build, and typically represent an ID (such as in the case of an AMI)
 
 ## Software provision with Terraform 
 
