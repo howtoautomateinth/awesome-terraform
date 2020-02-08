@@ -204,6 +204,27 @@ resource "aws_instance" "web" {
 }
 ```
 
+### Template Provider
+
+> The template provider exposes data sources to use templates to generate strings for other Terraform resources or outputs
+
+```
+# Template for initial configuration bash script
+data "template_file" "init" {
+  template = "${file("init.tpl")}"
+  vars = {
+    consul_address = "${aws_instance.consul.private_ip}"
+  }
+}
+
+# Create a web server
+resource "aws_instance" "web" {
+  # ...
+
+  user_data = "${data.template_file.init.rendered}"
+}
+```
+
 ## State
 
 > Terraform keeps thre remote state of the infrastructure
@@ -232,7 +253,7 @@ Example Backend
 - Remote operations
   - For larger infrastructures or certain changes, terraform apply can take a long, long time. Some backends support remote operations which enable the operation to execute remotely
 
-### Configuration
+### Backend Configuration
 
 configured directly in Terraform files in the terraform section
 
