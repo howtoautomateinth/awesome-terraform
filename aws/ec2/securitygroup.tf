@@ -1,6 +1,6 @@
-resource "aws_security_group" "sg-ssh" {
+resource "aws_security_group" "hta-sg-ssh" {
   vpc_id      = aws_vpc.main.id
-  name        = "sg-ssh"
+  name        = "hta-sg-ssh"
   description = "security group that allows ssh and all egress traffic"
   egress {
     from_port   = 0
@@ -16,7 +16,7 @@ resource "aws_security_group" "sg-ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "sg-ssh"
+    Name = "hta-sg-ssh"
   }
 }
 
