@@ -1,6 +1,9 @@
 # varirables files
 **/terraform.tfvars
 !/simple/terraform.tfvars
+**/*.ppk
+**/*.pub
+**/*-public
 
 # Local .terraform directories
 **/.terraform/*
